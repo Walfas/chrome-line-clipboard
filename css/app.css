@@ -42,12 +42,12 @@ img.home {
 
 .package-header {
   padding: 5px;
+  cursor: pointer;
 }
 
 .new-package {
   background: #3EC401;
   color: white;
-  cursor: pointer;
 }
 
 .package-image, .package-data {
@@ -56,6 +56,7 @@ img.home {
 }
 
 .sticker {
+  width: 75px;
   cursor: pointer;
 }
 

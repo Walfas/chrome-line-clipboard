@@ -137,7 +137,7 @@ app.factory('stickersService', [
 
     function getImageUrl(packageId, stickerId, isThumbnail) {
       var suffix = (isThumbnail ? '_key' : '') + '.png';
-      var platform = isThumbnail ? 'iphone' : 'android';
+      var platform = 'PC';
       return getBaseUrl(packageId, platform) + '/stickers/' + stickerId + suffix;
     }
 

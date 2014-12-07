@@ -3,7 +3,7 @@
     <img ng-src="{{package.getPreview(false)}}" />
   </div>
   <div class="package-data">
-    <small ng-show="isNew">Click here to add this sticker set!</small>
+    <small>Click here to {{isNew ? 'add' : 'remove'}} this sticker set</small>
     <div><strong>{{package.title}}</strong></div>
     <div>by <em>{{package.author}}</em></div>
   </div>

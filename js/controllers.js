@@ -38,14 +38,21 @@ app.controller('homeCtrl', [
 ]);
 
 app.controller('stickersCtrl',
-  ['$scope', '$stateParams', 'stickersService', 'clipboardService',
-  function($scope, $stateParams, stickersService, clipboardService) {
+  ['$scope', '$stateParams', 'stickersService', 'clipboardService', '$window',
+  function($scope, $stateParams, stickersService, clipboardService, $window) {
     packageId = $stateParams['packageId'];
     $scope.package = {};
     $scope.stickers = [];
     $scope.useSticker = function(sticker) {
       clipboardService.copy(sticker.imageUrl);
       stickersService.addRecentSticker(sticker);
+    }
+
+    $scope.removePackage = function() {
+      var message = 'Delete "' + $scope.package.title + '"?';
+      if ($window.confirm(message)) {
+        stickersService.removePackage(packageId);
+      }
     }
 
     stickersService

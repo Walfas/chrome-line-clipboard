@@ -1,0 +1,17 @@
+{
+  "name": "LINE stickers",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Line stickers!!",
+  "homepage_url": "http://google.com",
+  "default_locale": "en",
+  "browser_action": {
+    "default_icon": "icons/icon19.png",
+    "default_title": "LINE",
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "clipboardWrite",
+    "http://dl.stickershop.line.naver.jp/*"
+  ]
+}

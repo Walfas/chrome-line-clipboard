@@ -1,0 +1,14 @@
+body {
+  width: 300px;
+}
+
+#clipboard {
+  width: 1px;
+  height: 1px;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  color: white;
+  outline: none;
+}
+

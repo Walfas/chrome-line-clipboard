@@ -1,0 +1,5 @@
+<div ng-repeat="(packageId, package) in packages">
+  <a ui-sref="stickers({packageId: packageId})">
+    <img ng-src="{{package.preview(false, true)}}" title="{{package.title}}"/>
+  </a>
+</div>

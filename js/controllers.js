@@ -8,8 +8,11 @@ app.controller('topNavCtrl', [
 ]);
 
 app.controller('homeCtrl', [
-  '$scope', 'stickersService',
-  function($scope, stickersService) {
+  '$scope', 'stickersService', 'currentTabService',
+  function($scope, stickersService, currentTabService) {
+    currentTabService.currentTabPackageId.then(function(packageId) {
+      $scope.currentTabPackageId = packageId;
+    });
     $scope.packages = stickersService.getSavedPackages();
   }
 ]);

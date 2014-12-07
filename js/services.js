@@ -1,5 +1,23 @@
 var app = angular.module('line');
 
+app.factory('currentTabService', ['$q', function($q) {
+  var deferred = $q.defer();
+
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabArray) {
+    // Check if we're on a LINE sticker page
+    var matches = tabArray[0].url.match(/stickershop\/product\/([0-9]+)\//);
+    if (matches.length > 1) {
+      deferred.resolve(matches[1]);
+    } else {
+      deferred.resolve(null);
+    }
+  });
+
+  return {
+    currentTabPackageId: deferred.promise
+  };
+}]);
+
 app.factory('clipboardService', function() {
   function copyToClipboard(text) {
     var clip = document.getElementById('clipboard');
@@ -52,6 +70,10 @@ app.factory('stickersService', [
       return url;
     }
 
+    function removePackage(packageId) {
+      delete $localStorage.packages[packageId];
+    }
+
     function getPackage(packageId) {
       var deferred = $q.defer();
 
@@ -92,6 +114,7 @@ app.factory('stickersService', [
     }
 
     return {
+      removePackage: removePackage,
       getPackage: getPackage,
       getSavedPackages: getSavedPackages
     };

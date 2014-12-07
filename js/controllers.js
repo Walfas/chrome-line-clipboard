@@ -45,8 +45,8 @@ app.controller('homeCtrl', [
 ]);
 
 app.controller('stickersCtrl',
-  ['$scope', '$state', '$stateParams', 'stickersService', 'clipboardService', '$window', 'chromeApiService',
-  function($scope, $state, $stateParams, stickersService, clipboardService, $window, chromeApiService) {
+  ['$scope', '$state', '$stateParams', 'stickersService', 'clipboardService', '$window', 'chromeApiService', 'config',
+  function($scope, $state, $stateParams, stickersService, clipboardService, $window, chromeApiService, config) {
     packageId = $stateParams['packageId'];
     $scope.package = {};
     $scope.stickers = [];
@@ -64,7 +64,7 @@ app.controller('stickersCtrl',
     }
 
     $scope.openInShop = function() {
-      chromeApiService.newTab('https://store.line.me/stickershop/product/' + packageId + '/en')
+      chromeApiService.newTab(config['shopBaseUrl'] + '/' + packageId + '/en');
     }
 
     stickersService

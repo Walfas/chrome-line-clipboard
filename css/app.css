@@ -21,6 +21,7 @@ img.home {
 }
 
 #content {
+  padding-top: 5px;
   height: 300px;
   overflow-y: auto;
 }
@@ -30,18 +31,7 @@ img.home {
   -webkit-filter: grayscale(100%);
 }
 
-#clipboard {
-  width: 1px;
-  height: 1px;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  color: white;
-  outline: none;
-}
-
 .package-header {
-  padding: 5px;
   cursor: pointer;
 }
 
@@ -63,17 +53,29 @@ img.home {
   background-color: #E5FFDA;
 }
 
+.large-sticker {
+  height: 230px;
+}
+
 .middle {
   vertical-align: middle;
 }
 
+.center {
+  text-align: center;
+}
+
 .footer {
   padding: 5px;
-  text-align: center;
   cursor: pointer;
 }
 
 .footer:hover {
   background-color: #FCACAC;
+}
+
+.url-textarea {
+  width: 90%;
+  word-break: break-all;
 }
 

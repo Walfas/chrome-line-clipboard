@@ -7,11 +7,12 @@
   class="sticker"
   ng-repeat="sticker in stickers"
   ng-click="useSticker(sticker)"
+  ui-sref="copy({url: sticker.imageUrl})"
   ng-src="{{sticker.thumbnailUrl}}" />
 </div>
 
-<div class="footer" ng-click="removePackage()">
+<div class="footer center" ng-click="removePackage()">
   <img class="delete middle" src="icons/delete.png">
-  <span class="middle">Click here to remove this sticker set</div>
+  <span class="middle">Remove this sticker set</div>
 </div>
 

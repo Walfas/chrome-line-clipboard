@@ -8,17 +8,12 @@ app.controller('topNavCtrl', [
 ]);
 
 app.controller('homeCtrl', [
-  '$scope', 'stickersService', 'chromeApiService', 'clipboardService', '$window',
-  function($scope, stickersService, chromeApiService, clipboardService, $window) {
+  '$scope', 'stickersService', 'chromeApiService', '$window',
+  function($scope, stickersService, chromeApiService, $window) {
     $scope.newPackage = null;
     $scope.packages = stickersService.getSavedPackages();
     $scope.recentStickers = stickersService.getRecentStickers;
-
-    // TODO: Stop copy/pasting code
-    $scope.useSticker = function(sticker) {
-      clipboardService.copy(sticker.imageUrl);
-      stickersService.addRecentSticker(sticker);
-    }
+    $scope.useSticker = stickersService.addRecentSticker;
 
     $scope.addNewPackage = function() {
       if (!$scope.newPackage) return;
@@ -44,21 +39,18 @@ app.controller('homeCtrl', [
   }
 ]);
 
-app.controller('stickersCtrl',
-  ['$scope', '$state', '$stateParams', 'stickersService', 'clipboardService', '$window', 'chromeApiService', 'config',
-  function($scope, $state, $stateParams, stickersService, clipboardService, $window, chromeApiService, config) {
+app.controller('stickersCtrl', [
+  '$scope', '$state', '$stateParams', 'stickersService', '$window', 'chromeApiService', 'config',
+  function($scope, $state, $stateParams, stickersService, $window, chromeApiService, config) {
     packageId = $stateParams['packageId'];
     $scope.package = {};
     $scope.stickers = [];
-    $scope.useSticker = function(sticker) {
-      clipboardService.copy(sticker.imageUrl);
-      stickersService.addRecentSticker(sticker);
-    }
+    $scope.useSticker = stickersService.addRecentSticker;
 
     $scope.removePackage = function() {
       var message = 'Delete "' + $scope.package.title + '"?';
       if ($window.confirm(message)) {
-        $state.go("home");
+        $state.go('home');
         stickersService.removePackage(packageId);
       }
     }
@@ -73,6 +65,14 @@ app.controller('stickersCtrl',
         $scope.package = package;
         $scope.stickers = package.getStickers();
       })
+  }
+]);
+
+app.controller('copyCtrl', [
+  '$scope', '$stateParams', 'clipboardService',
+  function($scope, $stateParams, clipboardService) {
+    $scope.url = $stateParams['url'];
+    clipboardService.copy($scope.url, '#clipboard');
   }
 ]);
 

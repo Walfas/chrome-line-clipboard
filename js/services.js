@@ -10,9 +10,9 @@ app.factory('chromeApiService', ['$q', function($q) {
     // Check if we're on a LINE sticker page
     var matches = url.match(/stickershop\/product\/([0-9]+)\//);
     if (matches.length > 1) {
-      deferred.resolve(matches[1]);
+      currentTabDeferred.resolve(matches[1]);
     } else {
-      deferred.resolve(null);
+      currentTabDeferred.resolve(null);
     }
   });
 
@@ -27,12 +27,13 @@ app.factory('chromeApiService', ['$q', function($q) {
 }]);
 
 app.factory('clipboardService', function() {
-  function copyToClipboard(text) {
-    var clip = document.getElementById('clipboard');
-    clip.value = text;
-    clip.select();
+  function copyToClipboard(text, container) {
+    if (typeof container == 'string') {
+      container = document.querySelector(container);
+    }
+    container.value = text;
+    container.select();
     document.execCommand('Copy', false, null);
-    window.getSelection().removeAllRanges();
   }
 
   return {
@@ -105,7 +106,7 @@ app.factory('stickersService', [
       useRedirect = (typeof useRedirect !== 'undefined') ? useRedirect : false;
       ver = (typeof ver !== 'undefined') ? ver : 1;
 
-      var domain = useRedirect ? config['redirectBaseUrl'] : config['cdnBaseUrl']
+      var domain = useRedirect ? config['redirectBaseUrl'] : config['cdnBaseUrl'];
 
       var verPath = Math.floor(ver / 1000000) + '/' + Math.floor(ver / 1000) + '/' + (ver % 1000);
       var url = domain + '/' + verPath + '/' + packageId + '/' + platform;
@@ -151,7 +152,7 @@ app.factory('stickersService', [
 
     function getImageUrl(packageId, stickerId, isThumbnail) {
       var suffix = (isThumbnail ? '_key' : '') + '.png';
-      var platform = 'android';
+      var platform = isThumbnail ? 'PC' : 'android';
       return getBaseUrl(packageId, platform, !isThumbnail) + '/stickers/' + stickerId + suffix;
     }
 
@@ -169,5 +170,5 @@ app.factory('stickersService', [
       clearRecentStickers: clearRecentStickers
     };
   }
-])
+]);
 

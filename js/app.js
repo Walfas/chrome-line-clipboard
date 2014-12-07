@@ -20,5 +20,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: 'views/stickers.html',
       controller: 'stickersCtrl'
     })
+    .state('copy', {
+      url: '/copy/:url',
+      templateUrl: '/views/copy.html',
+      controller: 'copyCtrl'
+    })
 });
 

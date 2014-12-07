@@ -17,15 +17,18 @@
   <div id="topnav" ng-controller="topNavCtrl">
     <div class="inline">
       <a ui-sref="home" ui-sref-active="active">
-        <img src="icons/clock.png" class="home nav-image" />
+        <img
+          src="icons/clock.png"
+          class="home nav-image"
+          title="Recently used stickers" />
       </a>
     </div>
     <div class="inline" ng-repeat="(packageId, package) in packages">
       <a ui-sref="stickers({packageId: packageId})"
          ui-sref-active="active">
         <img
-          class="nav-image"
           ng-src="{{package.getPreview(true, false)}}"
+          class="nav-image"
           title="{{package.title}}"/>
       </a>
     </div>

@@ -1,7 +1,8 @@
 <div package-header
+  ng-show="newPackage"
   package="newPackage"
   is-new="true"
-  ng-show="newPackage"
+  ui-sref="stickers({packageId: newPackage.id})"
   ng-click="addNewPackage()"></div>
 
 <div id="recent-stickers">
@@ -23,6 +24,9 @@ and open this popup to add it.
 </p>
 </div>
 
+<div class="center middle" ng-hide="recentStickers().length || newPackage || noStickers()">
+  No recent stickers
+</div>
 <div class="footer center" ng-show="recentStickers().length" ng-click="clearRecentStickers()">
   <img class="delete middle" src="icons/delete.png">
   <span class="middle">Clear recent stickers</div>

@@ -19,20 +19,21 @@ app.factory('stickersService', [
     $localStorage.$default({packages:{}});
 
     function addPackageData(package) {
-      var newPackage = angular.copy(package);
-      newPackage.stickers = newPackage.stickerIds.map(function(stickerId) {
-        return {
-          id: stickerId,
-          packageId: package.id,
-          imageUrl: getImageUrl(package.id, stickerId, false),
-          thumbnailUrl: getImageUrl(package.id, stickerId, true)
-        };
-      });
+      package.getStickers = function() {
+        return package.stickerIds.map(function(stickerId) {
+          return {
+            id: stickerId,
+            packageId: package.id,
+            imageUrl: getImageUrl(package.id, stickerId, false),
+            thumbnailUrl: getImageUrl(package.id, stickerId, true)
+          };
+        });
+      }
 
-      newPackage.preview = function(isSmall, isOn) {
+      package.getPreview = function(isSmall, isOn) {
         return getPreviewUrl(package.id, isSmall, isOn);
       }
-      return newPackage;
+      return package;
     }
 
     function getSavedPackages() {

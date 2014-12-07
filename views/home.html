@@ -7,7 +7,7 @@
 <div id="recent-stickers">
   <img
     class="sticker"
-    ng-repeat="sticker in recentStickers().slice().reverse()"
+    ng-repeat="sticker in recentStickers()"
     ng-click="useSticker(sticker)"
     ng-src="{{sticker.thumbnailUrl}}" />
 </div>

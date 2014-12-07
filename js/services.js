@@ -62,13 +62,13 @@ app.factory('stickersService', [
 
     function addRecentSticker(sticker) {
       var recent = $localStorage.recent;
-      var recentIds = recent.map(function(s) { return s.id; });
+      var recentIds = recent.map(function(s) { return [s.packageId, s.id].join('/'); });
 
-      var existingIndex = recentIds.indexOf(sticker.id);
+      var existingIndex = recentIds.indexOf([sticker.packageId, sticker.id].join('/'));
       if (existingIndex != -1) {
         recent.splice(existingIndex, 1)
       }
-      recent.push(sticker);
+      recent.unshift(sticker);
 
       while(recent.length > 16) {
         recent.pop();
@@ -137,7 +137,7 @@ app.factory('stickersService', [
 
     function getImageUrl(packageId, stickerId, isThumbnail) {
       var suffix = (isThumbnail ? '_key' : '') + '.png';
-      var platform = 'PC';
+      var platform = 'android';
       return getBaseUrl(packageId, platform) + '/stickers/' + stickerId + suffix;
     }
 

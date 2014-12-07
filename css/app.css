@@ -1,5 +1,32 @@
 body {
-  width: 300px;
+  margin: 2px;
+  width: 320px;
+}
+
+.inline {
+  display: inline;
+}
+
+img.home {
+  padding: 5px;
+}
+
+#topnav {
+  border-bottom: 1px solid;
+}
+
+#topnav a {
+  text-decoration: none;
+}
+
+#content {
+  height: 300px;
+  overflow-y: auto;
+}
+
+:not(.active) > .nav-image {
+  opacity: 0.75;
+  -webkit-filter: grayscale(100%);
 }
 
 #clipboard {

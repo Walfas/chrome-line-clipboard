@@ -18,7 +18,7 @@ app.factory('stickersService', [
   function($q, $http, $localStorage, lineBaseUrl) {
     $localStorage.$default({packages:{}});
 
-    function addPackageData(package) {
+    function addPackageFunctions(package) {
       package.getStickers = function() {
         return package.stickerIds.map(function(stickerId) {
           return {
@@ -30,15 +30,15 @@ app.factory('stickersService', [
         });
       }
 
-      package.getPreview = function(isSmall, isOn) {
-        return getPreviewUrl(package.id, isSmall, isOn);
+      package.getPreview = function(isSmall) {
+        return getPreviewUrl(package.id, isSmall);
       }
       return package;
     }
 
     function getSavedPackages() {
       var packages = $localStorage.packages;
-      for (id in packages) { packages[id] = addPackageData(packages[id]); }
+      for (id in packages) { packages[id] = addPackageFunctions(packages[id]); }
 
       return packages;
     }
@@ -77,7 +77,7 @@ app.factory('stickersService', [
         });
       }
 
-      return deferred.promise.then(addPackageData);
+      return deferred.promise.then(addPackageFunctions);
     }
 
     function getImageUrl(packageId, stickerId, isThumbnail) {
@@ -86,10 +86,9 @@ app.factory('stickersService', [
       return getBaseUrl(packageId, platform) + '/stickers/' + stickerId + suffix;
     }
 
-    function getPreviewUrl(packageId, isSmall, isOff) {
+    function getPreviewUrl(packageId, isSmall) {
       var platform = (isSmall || false) ? 'PC' : 'android';
-      var onOff = (isOff || false) ? 'off' : 'on';
-      return getBaseUrl(packageId, platform) + '/tab_' + onOff + '.png';
+      return getBaseUrl(packageId, platform) + '/tab_on.png';
     }
 
     return {

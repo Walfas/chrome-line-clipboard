@@ -1,5 +1,12 @@
 var app = angular.module('line');
 
+app.controller('topNavCtrl', [
+  '$scope', 'stickersService',
+  function($scope, stickersService) {
+    $scope.packages = stickersService.getSavedPackages();
+  }
+]);
+
 app.controller('homeCtrl', [
   '$scope', 'stickersService',
   function($scope, stickersService) {

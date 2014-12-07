@@ -12,7 +12,25 @@
   <script src="js/controllers.js"></script>
 </head>
 <body>
-  <div ui-view></div>
-  <input id="clipboard"/>
+  <div id="topnav" ng-controller="topNavCtrl">
+    <div class="inline">
+      <a ui-sref="home" ui-sref-active="active">
+        <img src="icons/home.png" class="home nav-image" />
+      </a>
+    </div>
+    <div class="inline" ng-repeat="(packageId, package) in packages">
+      <a ui-sref="stickers({packageId: packageId})"
+         ui-sref-active="active">
+        <img
+          class="nav-image"
+          ng-src="{{package.getPreview(true, false)}}"
+          title="{{package.title}}"/>
+      </a>
+    </div>
+  </div>
+  <div id="content">
+    <div ui-view></div>
+    <input id="clipboard"/>
+  </div>
 </body>
 </html>

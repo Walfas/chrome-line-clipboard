@@ -40,11 +40,13 @@ img.home {
   outline: none;
 }
 
-#new-package {
+.package-header {
   padding: 5px;
-  width: 100%;
-  color: white;
+}
+
+.new-package {
   background: #3EC401;
+  color: white;
   cursor: pointer;
 }
 
@@ -58,6 +60,6 @@ img.home {
 }
 
 .sticker:hover {
-  background-color: #E8FBFF;
+  background-color: #E5FFDA;
 }
 

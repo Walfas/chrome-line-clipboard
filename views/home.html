@@ -1,4 +1,4 @@
-<div id="new-package" ng-show="newPackage" ng-click="addNewPackage()">
+<div class="package-header new-package" ng-show="newPackage" ng-click="addNewPackage()">
   <div class="package-image">
     <img ng-src="{{newPackage.getPreview(false)}}" />
   </div>
@@ -7,5 +7,13 @@
     <div><strong>{{newPackage.title}}</strong></div>
     <div>by <em>{{newPackage.author}}</em></div>
   </div>
+</div>
+
+<div id="recent-stickers">
+  <img
+    class="sticker"
+    ng-repeat="sticker in recentStickers().slice().reverse()"
+    ng-click="useSticker(sticker)"
+    ng-src="{{sticker.thumbnailUrl}}" />
 </div>
 

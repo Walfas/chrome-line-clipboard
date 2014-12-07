@@ -1,6 +1,6 @@
 <img
   class="sticker"
   ng-repeat="sticker in stickers"
-  ng-click="clipboard.copy(sticker.imageUrl)"
+  ng-click="useSticker(sticker)"
   ng-src="{{sticker.thumbnailUrl}}" />
 

@@ -8,15 +8,23 @@ app.controller('topNavCtrl', [
 ]);
 
 app.controller('homeCtrl', [
-  '$scope', 'stickersService', 'currentTabService',
-  function($scope, stickersService, currentTabService) {
+  '$scope', 'stickersService', 'currentTabService', 'clipboardService',
+  function($scope, stickersService, currentTabService, clipboardService) {
     $scope.newPackage = null;
     $scope.packages = stickersService.getSavedPackages();
+    $scope.recentStickers = stickersService.getRecentStickers;
+
+    // TODO: Stop copy/pasting code
+    $scope.useSticker = function(sticker) {
+      clipboardService.copy(sticker.imageUrl);
+      stickersService.addRecentSticker(sticker);
+    }
 
     $scope.addNewPackage = function() {
-      if (!newPackage) return;
-      stickersService.getPackage(newPackage.id, true);
-      newPackage = null;
+      if (!$scope.newPackage) return;
+      stickersService.getPackage($scope.newPackage.id, true).then(function() {
+        $scope.newPackage = null;
+      });
     }
 
     currentTabService.currentTabPackageId.then(function(packageId) {
@@ -35,7 +43,10 @@ app.controller('stickersCtrl',
     packageId = $stateParams['packageId'];
     $scope.package = {};
     $scope.stickers = [];
-    $scope.clipboard = clipboardService;
+    $scope.useSticker = function(sticker) {
+      clipboardService.copy(sticker.imageUrl);
+      stickersService.addRecentSticker(sticker);
+    }
 
     stickersService
       .getPackage(packageId)

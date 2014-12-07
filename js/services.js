@@ -37,7 +37,10 @@ app.factory('clipboardService', function() {
 app.factory('stickersService', [
   '$q', '$http', '$localStorage', 'lineBaseUrl',
   function($q, $http, $localStorage, lineBaseUrl) {
-    $localStorage.$default({packages:{}});
+    $localStorage.$default({
+      packages: {},
+      recent: []
+    });
 
     function addPackageFunctions(package) {
       package.getStickers = function() {
@@ -55,6 +58,28 @@ app.factory('stickersService', [
         return getPreviewUrl(package.id, isSmall);
       }
       return package;
+    }
+
+    function addRecentSticker(sticker) {
+      var recent = $localStorage.recent;
+      var recentIds = recent.map(function(s) { return s.id; });
+
+      var existingIndex = recentIds.indexOf(sticker.id);
+      if (existingIndex != -1) {
+        recent.splice(existingIndex, 1)
+      }
+      recent.push(sticker);
+
+      while(recent.length > 16) {
+        recent.pop();
+      }
+
+      $localStorage.recent = recent;
+      return recent;
+    }
+
+    function getRecentStickers() {
+      return $localStorage.recent;
     }
 
     function getSavedPackages() {
@@ -124,7 +149,9 @@ app.factory('stickersService', [
     return {
       removePackage: removePackage,
       getPackage: getPackage,
-      getSavedPackages: getSavedPackages
+      getSavedPackages: getSavedPackages,
+      addRecentSticker: addRecentSticker,
+      getRecentStickers: getRecentStickers
     };
   }
 ])

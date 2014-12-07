@@ -1,8 +1,15 @@
-<div package-header package="package" ng-click="removePackage()"></div>
+<div package-header package="package"></div>
 
+<div class="sticker-list">
 <img
   class="sticker"
   ng-repeat="sticker in stickers"
   ng-click="useSticker(sticker)"
   ng-src="{{sticker.thumbnailUrl}}" />
+</div>
+
+<div class="footer" ng-click="removePackage()">
+  <img class="delete middle" src="icons/delete.png">
+  <span class="middle">Click here to remove this sticker set</div>
+</div>
 

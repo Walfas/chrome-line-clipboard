@@ -8,8 +8,8 @@ app.controller('topNavCtrl', [
 ]);
 
 app.controller('homeCtrl', [
-  '$scope', 'stickersService', 'currentTabService', 'clipboardService',
-  function($scope, stickersService, currentTabService, clipboardService) {
+  '$scope', 'stickersService', 'currentTabService', 'clipboardService', '$window',
+  function($scope, stickersService, currentTabService, clipboardService, $window) {
     $scope.newPackage = null;
     $scope.packages = stickersService.getSavedPackages();
     $scope.recentStickers = stickersService.getRecentStickers;
@@ -27,6 +27,13 @@ app.controller('homeCtrl', [
       });
     }
 
+    $scope.clearRecentStickers = function() {
+      var message = 'Clear recent stickers?';
+      if ($window.confirm(message)) {
+        stickersService.clearRecentStickers();
+      }
+    }
+
     currentTabService.currentTabPackageId.then(function(packageId) {
       if (packageId && !$scope.packages[packageId]) {
         stickersService.getPackage(packageId, false).then(function(package) {
@@ -38,8 +45,8 @@ app.controller('homeCtrl', [
 ]);
 
 app.controller('stickersCtrl',
-  ['$scope', '$stateParams', 'stickersService', 'clipboardService', '$window',
-  function($scope, $stateParams, stickersService, clipboardService, $window) {
+  ['$scope', '$state', '$stateParams', 'stickersService', 'clipboardService', '$window',
+  function($scope, $state, $stateParams, stickersService, clipboardService, $window) {
     packageId = $stateParams['packageId'];
     $scope.package = {};
     $scope.stickers = [];
@@ -51,6 +58,7 @@ app.controller('stickersCtrl',
     $scope.removePackage = function() {
       var message = 'Delete "' + $scope.package.title + '"?';
       if ($window.confirm(message)) {
+        $state.go("home");
         stickersService.removePackage(packageId);
       }
     }

@@ -5,7 +5,7 @@
   "description": "Line stickers!!",
   "homepage_url": "http://google.com",
   "browser_action": {
-    "default_icon": "icons/icon19.png",
+    "default_icon": "icons/line.png",
     "default_title": "LINE",
     "default_popup": "index.html"
   },

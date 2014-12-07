@@ -52,7 +52,6 @@ img.home {
 
 .package-image, .package-data {
   display: inline-block;
-  vertical-align: middle;
 }
 
 .sticker {
@@ -62,5 +61,19 @@ img.home {
 
 .sticker:hover {
   background-color: #E5FFDA;
+}
+
+.middle {
+  vertical-align: middle;
+}
+
+.footer {
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.footer:hover {
+  background-color: #FCACAC;
 }
 

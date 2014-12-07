@@ -1,9 +1,9 @@
 <div class="package-header" ng-class="isNew ? 'new-package' : ''">
-  <div class="package-image">
+  <div class="package-image middle">
     <img ng-src="{{package.getPreview(false)}}" />
   </div>
-  <div class="package-data">
-    <small>Click here to {{isNew ? 'add' : 'remove'}} this sticker set</small>
+  <div class="package-data middle">
+    <small ng-show="isNew">Click here to add this sticker set!</small>
     <div><strong>{{package.title}}</strong></div>
     <div>by <em>{{package.author}}</em></div>
   </div>

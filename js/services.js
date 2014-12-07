@@ -27,6 +27,7 @@ app.factory('clipboardService', function() {
     clip.value = text;
     clip.select();
     document.execCommand('Copy', false, null);
+    window.getSelection().removeAllRanges();
   }
 
   return {
@@ -80,6 +81,11 @@ app.factory('stickersService', [
 
     function getRecentStickers() {
       return $localStorage.recent;
+    }
+
+    function clearRecentStickers() {
+      delete $localStorage.recent;
+      $localStorage.recent = [];
     }
 
     function getSavedPackages() {
@@ -151,7 +157,8 @@ app.factory('stickersService', [
       getPackage: getPackage,
       getSavedPackages: getSavedPackages,
       addRecentSticker: addRecentSticker,
-      getRecentStickers: getRecentStickers
+      getRecentStickers: getRecentStickers,
+      clearRecentStickers: clearRecentStickers
     };
   }
 ])

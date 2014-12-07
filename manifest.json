@@ -1,12 +1,12 @@
 {
-  "name": "LINE stickers",
+  "name": "LINE Clipboard",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "Line stickers!!",
-  "homepage_url": "http://google.com",
+  "description": "Copy LINE stickers to your clipboard!",
+  "homepage_url": "http://google.com/",
   "browser_action": {
     "default_icon": "icons/line.png",
-    "default_title": "LINE",
+    "default_title": "LINE Clipboard",
     "default_popup": "index.html"
   },
   "permissions": [
@@ -15,3 +15,4 @@
     "http://dl.stickershop.line.naver.jp/*"
   ]
 }
+

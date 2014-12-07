@@ -4,8 +4,11 @@ app.factory('currentTabService', ['$q', function($q) {
   var deferred = $q.defer();
 
   chrome.tabs.query({active: true, currentWindow: true}, function(tabArray) {
+    var url = tabArray[0].url;
+    if (!url) return;
+
     // Check if we're on a LINE sticker page
-    var matches = tabArray[0].url.match(/stickershop\/product\/([0-9]+)\//);
+    var matches = url.match(/stickershop\/product\/([0-9]+)\//);
     if (matches.length > 1) {
       deferred.resolve(matches[1]);
     } else {
@@ -74,7 +77,8 @@ app.factory('stickersService', [
       delete $localStorage.packages[packageId];
     }
 
-    function getPackage(packageId) {
+    function getPackage(packageId, storeInCache) {
+      storeInCache = (typeof storeInCache !== 'undefined') ? storeInCache : false;
       var deferred = $q.defer();
 
       // Check if we've already cached sticker IDs
@@ -94,7 +98,11 @@ app.factory('stickersService', [
             author: author,
             stickerIds: ids
           };
-          $localStorage.packages[packageId] = package;
+
+          if (storeInCache) {
+            $localStorage.packages[packageId] = package;
+          }
+
           deferred.resolve(package);
         });
       }

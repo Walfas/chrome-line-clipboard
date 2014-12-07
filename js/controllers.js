@@ -10,10 +10,22 @@ app.controller('topNavCtrl', [
 app.controller('homeCtrl', [
   '$scope', 'stickersService', 'currentTabService',
   function($scope, stickersService, currentTabService) {
-    currentTabService.currentTabPackageId.then(function(packageId) {
-      $scope.currentTabPackageId = packageId;
-    });
+    $scope.newPackage = null;
     $scope.packages = stickersService.getSavedPackages();
+
+    $scope.addNewPackage = function() {
+      if (!newPackage) return;
+      stickersService.getPackage(newPackage.id, true);
+      newPackage = null;
+    }
+
+    currentTabService.currentTabPackageId.then(function(packageId) {
+      if (packageId && !$scope.packages[packageId]) {
+        stickersService.getPackage(packageId, false).then(function(package) {
+          $scope.newPackage = package;
+        });
+      }
+    });
   }
 ]);
 

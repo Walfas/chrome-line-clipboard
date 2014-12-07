@@ -13,9 +13,18 @@
     ng-src="{{sticker.thumbnailUrl}}" />
 </div>
 
+<div class="center" ng-show="!newPackage && noStickers()">
+<p>You don't have any sticker sets!</p>
+<p>
+To add a sticker set to your collection, visit a sticker page on the 
+<a ng-click="openInNewTab('https://store.line.me/home/en')" href="">LINE store</a>
+(for example, <a ng-click="openInNewTab('https://store.line.me/stickershop/product/1027416/en')" href="">this one</a>)
+and open this popup to add it.
+</p>
+</div>
+
 <div class="footer center" ng-show="recentStickers().length" ng-click="clearRecentStickers()">
   <img class="delete middle" src="icons/delete.png">
   <span class="middle">Clear recent stickers</div>
 </div>
-
 

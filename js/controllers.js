@@ -14,10 +14,18 @@ app.controller('homeCtrl', [
     $scope.packages = stickersService.getSavedPackages();
     $scope.recentStickers = stickersService.getRecentStickers;
     $scope.useSticker = stickersService.addRecentSticker;
+    $scope.noStickers = function() {
+      return angular.equals($scope.packages, {});
+    }
+
+    $scope.openInNewTab = function(url) {
+      chromeApiService.newTab(url);
+    }
 
     $scope.addNewPackage = function() {
       if (!$scope.newPackage) return;
       stickersService.getPackage($scope.newPackage.id, true).then(function() {
+        $scope.packages = stickersService.getSavedPackages();
         $scope.newPackage = null;
       });
     }

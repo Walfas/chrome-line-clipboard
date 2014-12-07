@@ -10,6 +10,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');
 
   $stateProvider
+    .state('installed', {
+      url: '/installed',
+      templateUrl: 'views/installed.html',
+      controller: 'installedCtrl'
+    })
     .state('home', {
       url: '/home',
       templateUrl: 'views/home.html',

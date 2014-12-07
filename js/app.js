@@ -1,7 +1,9 @@
 var app = angular.module('line', ['ui.router', 'ngStorage']);
 
-app.value('lineBaseUrl', 'http://dl.stickershop.line.naver.jp/products');
-//app.value('lineBaseUrl', 'http://re-line.herokuapp.com');
+app.value('config', {
+  cdnBaseUrl: 'http://dl.stickershop.line.naver.jp/products',
+  redirectBaseUrl: 'http://re-line.herokuapp.com'
+});
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');

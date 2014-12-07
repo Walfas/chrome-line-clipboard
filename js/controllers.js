@@ -8,8 +8,8 @@ app.controller('topNavCtrl', [
 ]);
 
 app.controller('homeCtrl', [
-  '$scope', 'stickersService', 'currentTabService', 'clipboardService', '$window',
-  function($scope, stickersService, currentTabService, clipboardService, $window) {
+  '$scope', 'stickersService', 'chromeApiService', 'clipboardService', '$window',
+  function($scope, stickersService, chromeApiService, clipboardService, $window) {
     $scope.newPackage = null;
     $scope.packages = stickersService.getSavedPackages();
     $scope.recentStickers = stickersService.getRecentStickers;
@@ -34,7 +34,7 @@ app.controller('homeCtrl', [
       }
     }
 
-    currentTabService.currentTabPackageId.then(function(packageId) {
+    chromeApiService.currentTabPackageId.then(function(packageId) {
       if (packageId && !$scope.packages[packageId]) {
         stickersService.getPackage(packageId, false).then(function(package) {
           $scope.newPackage = package;
@@ -45,8 +45,8 @@ app.controller('homeCtrl', [
 ]);
 
 app.controller('stickersCtrl',
-  ['$scope', '$state', '$stateParams', 'stickersService', 'clipboardService', '$window',
-  function($scope, $state, $stateParams, stickersService, clipboardService, $window) {
+  ['$scope', '$state', '$stateParams', 'stickersService', 'clipboardService', '$window', 'chromeApiService',
+  function($scope, $state, $stateParams, stickersService, clipboardService, $window, chromeApiService) {
     packageId = $stateParams['packageId'];
     $scope.package = {};
     $scope.stickers = [];
@@ -61,6 +61,10 @@ app.controller('stickersCtrl',
         $state.go("home");
         stickersService.removePackage(packageId);
       }
+    }
+
+    $scope.openInShop = function() {
+      chromeApiService.newTab('https://store.line.me/stickershop/product/' + packageId + '/en')
     }
 
     stickersService

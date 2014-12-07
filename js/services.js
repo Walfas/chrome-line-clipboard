@@ -1,7 +1,7 @@
 var app = angular.module('line');
 
-app.factory('currentTabService', ['$q', function($q) {
-  var deferred = $q.defer();
+app.factory('chromeApiService', ['$q', function($q) {
+  var currentTabDeferred = $q.defer();
 
   chrome.tabs.query({active: true, currentWindow: true}, function(tabArray) {
     var url = tabArray[0].url;
@@ -16,8 +16,13 @@ app.factory('currentTabService', ['$q', function($q) {
     }
   });
 
+  function newTab(url) {
+    chrome.tabs.create({ url: url });
+  }
+
   return {
-    currentTabPackageId: deferred.promise
+    currentTabPackageId: currentTabDeferred.promise,
+    newTab: newTab
   };
 }]);
 
@@ -36,8 +41,8 @@ app.factory('clipboardService', function() {
 });
 
 app.factory('stickersService', [
-  '$q', '$http', '$localStorage', 'lineBaseUrl',
-  function($q, $http, $localStorage, lineBaseUrl) {
+  '$q', '$http', '$localStorage', 'config',
+  function($q, $http, $localStorage, config) {
     $localStorage.$default({
       packages: {},
       recent: []
@@ -95,12 +100,15 @@ app.factory('stickersService', [
       return packages;
     }
 
-    function getBaseUrl(packageId, platform, ver) {
+    function getBaseUrl(packageId, platform, useRedirect, ver) {
       platform = (typeof platform !== 'undefined') ? platform : 'android';
+      useRedirect = (typeof useRedirect !== 'undefined') ? useRedirect : false;
       ver = (typeof ver !== 'undefined') ? ver : 1;
 
+      var domain = useRedirect ? config['redirectBaseUrl'] : config['cdnBaseUrl']
+
       var verPath = Math.floor(ver / 1000000) + '/' + Math.floor(ver / 1000) + '/' + (ver % 1000);
-      var url = lineBaseUrl + '/' + verPath + '/' +packageId + '/' + platform;
+      var url = domain + '/' + verPath + '/' + packageId + '/' + platform;
       return url;
     }
 
@@ -117,7 +125,7 @@ app.factory('stickersService', [
       if (typeof cached !== 'undefined') {
         deferred.resolve(cached);
       } else {
-        var url = getBaseUrl(packageId) + '/productInfo.meta';
+        var url = getBaseUrl(packageId, 'android', false) + '/productInfo.meta';
         var promise = $http.get(url).success(function(data) {
           var title = data.title['en'] || data.title['ja'];
           var author = data.author['en'] || data.author['ja'];
@@ -144,7 +152,7 @@ app.factory('stickersService', [
     function getImageUrl(packageId, stickerId, isThumbnail) {
       var suffix = (isThumbnail ? '_key' : '') + '.png';
       var platform = 'android';
-      return getBaseUrl(packageId, platform) + '/stickers/' + stickerId + suffix;
+      return getBaseUrl(packageId, platform, !isThumbnail) + '/stickers/' + stickerId + suffix;
     }
 
     function getPreviewUrl(packageId, isSmall) {

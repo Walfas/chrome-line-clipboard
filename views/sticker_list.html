@@ -4,7 +4,7 @@
     ng-mouseenter="sticker.hovered = true"
     ng-mouseleave="sticker.hovered = false"
     ui-sref="copy({url: sticker.imageUrl})"
-    ng-click="stickerClicked(sticker)"></div>
+    ng-click="sticker.hovered = false; stickerClicked(sticker)"></div>
   <img
     class="sticker"
     ng-src="{{sticker.hovered ? sticker.imageUrl : sticker.thumbnailUrl}}" />

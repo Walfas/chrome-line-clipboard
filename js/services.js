@@ -152,7 +152,8 @@ app.factory('stickersService', [
 
     function getImageUrl(packageId, stickerId, isThumbnail) {
       var suffix = (isThumbnail ? '_key' : '') + '.png';
-      var platform = isThumbnail ? 'PC' : 'android';
+      //var platform = isThumbnail ? 'PC' : 'android';
+      var platform = 'android';
       return getBaseUrl(packageId, platform, !isThumbnail) + '/stickers/' + stickerId + suffix;
     }
 

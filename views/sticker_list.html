@@ -1,0 +1,9 @@
+<div class="sticker-container" ng-repeat="sticker in stickers">
+  <div
+    class="sticker-hitbox"
+    ui-sref="copy({url: sticker.imageUrl})"
+    ng-click="stickerClicked(sticker)"></div>
+  <img
+    class="sticker"
+    ng-src="{{sticker.thumbnailUrl}}" />
+</div>

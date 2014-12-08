@@ -2,14 +2,7 @@
   package="package"
   ng-click="openInShop()"></div>
 
-<div class="sticker-list">
-<img
-  class="sticker"
-  ng-repeat="sticker in stickers"
-  ng-click="useSticker(sticker)"
-  ui-sref="copy({url: sticker.imageUrl})"
-  ng-src="{{sticker.thumbnailUrl}}" />
-</div>
+<div sticker-list stickers="stickers" sticker-clicked="useSticker"></div>
 
 <div class="footer center" ng-click="removePackage()">
   <img class="delete middle" src="icons/delete.png">

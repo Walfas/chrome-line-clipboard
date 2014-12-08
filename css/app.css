@@ -27,6 +27,7 @@ img.home {
 #content {
   padding-top: 5px;
   max-height: 300px;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 
@@ -48,13 +49,30 @@ img.home {
   display: inline-block;
 }
 
-.sticker {
+.sticker-container {
+  display: inline-block;
+  overflow: visible;
   width: 75px;
+  height: 70px;
+  position: relative;
+}
+
+.sticker, .sticker-hitbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 75px;
+  height: 70px;
   cursor: pointer;
 }
 
-.sticker:hover {
-  background-color: #E5FFDA;
+.sticker-hitbox {
+  z-index: 100;
+}
+
+.sticker-hitbox:hover+.sticker {
+  z-index: 50;
+  transform: scale(2.0);
 }
 
 .large-sticker {
@@ -70,7 +88,7 @@ img.home {
 }
 
 .footer {
-  padding: 5px;
+  padding: 10px;
   cursor: pointer;
 }
 

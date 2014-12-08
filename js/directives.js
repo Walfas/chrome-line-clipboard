@@ -11,3 +11,14 @@ app.directive('packageHeader', function() {
   };
 });
 
+app.directive('stickerList', function() {
+  return {
+    restrict: 'A',
+    scope: {
+      stickers: '=',
+      stickerClicked: '='
+    },
+    templateUrl: '/views/sticker_list.html'
+  }
+});
+

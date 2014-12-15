@@ -49,6 +49,16 @@ app.factory('stickersService', [
       recent: []
     });
 
+    function getTwitterUrl(packageId, stickerId) {
+      var url = config['apiBaseUrl'] + '/1/' +
+        packageId + '/' + stickerId + '.json';
+      var promise = $http.get(url).then(function(response) {
+        return response.data.url;
+      });
+
+      return promise;
+    }
+
     function addPackageFunctions(package) {
       package.getStickers = function() {
         return package.stickerIds.map(function(stickerId) {
@@ -152,7 +162,6 @@ app.factory('stickersService', [
 
     function getImageUrl(packageId, stickerId, isThumbnail) {
       var suffix = (isThumbnail ? '_key' : '') + '.png';
-      //var platform = isThumbnail ? 'PC' : 'android';
       var platform = 'android';
       return getBaseUrl(packageId, platform, !isThumbnail) + '/stickers/' + stickerId + suffix;
     }
@@ -163,6 +172,7 @@ app.factory('stickersService', [
     }
 
     return {
+      getTwitterUrl: getTwitterUrl,
       removePackage: removePackage,
       getPackage: getPackage,
       getSavedPackages: getSavedPackages,

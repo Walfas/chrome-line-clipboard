@@ -3,6 +3,7 @@ var app = angular.module('line', ['ui.router', 'ngStorage']);
 app.value('config', {
   cdnBaseUrl: 'http://dl.stickershop.line.naver.jp/products',
   redirectBaseUrl: 'http://re-line.herokuapp.com',
+  apiBaseUrl: 'http://shiningline.herokuapp.com/stickers',
   shopBaseUrl: 'https://store.line.me/stickershop/product'
 });
 
@@ -26,7 +27,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: 'stickersCtrl'
     })
     .state('copy', {
-      url: '/copy/:url',
+      url: '/copy/:packageId/:stickerId/:fallbackUrl',
       templateUrl: '/views/copy.html',
       controller: 'copyCtrl'
     })

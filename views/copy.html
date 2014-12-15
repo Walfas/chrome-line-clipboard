@@ -1,6 +1,11 @@
-<div class="center">
-  <div>Sticker URL copied to clipboard!</div>
-  <div class="large-sticker"><img ng-src="{{url}}" /></div>
-  <textarea class="url-textarea" id="clipboard">{{url}}</textarea>
+<div class="center relative">
+  <div class="spinner" ng-hide="twitterUrl"></div>
+  <div class="large-sticker"><img ng-class="twitterUrl ? '' : 'inactive'" ng-src="{{url}}" /></div>
+  <textarea class="url-textarea" id="clipboard">{{twitterUrl || url}}</textarea>
+</div>
+
+<div class="footer center">
+  <span ng-hide="twitterUrl">Uploading to Twitter...</span>
+  <span ng-show="twitterUrl">Sticker URL copied to clipboard!</span>
 </div>
 

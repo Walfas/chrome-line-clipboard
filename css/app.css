@@ -33,7 +33,7 @@ img.home {
   padding-bottom: 35px;
 }
 
-:not(.active) > .nav-image {
+.inactive, :not(.active) > .nav-image {
   opacity: 0.75;
   -webkit-filter: grayscale(100%);
 }
@@ -103,8 +103,12 @@ img.home {
   cursor: pointer;
 }
 
-.footer:hover {
+.footer.delete:hover {
   background-color: #FCACAC;
+}
+
+.relative {
+  position: relative;
 }
 
 .url-textarea {

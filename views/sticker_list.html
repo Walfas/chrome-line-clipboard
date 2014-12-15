@@ -3,7 +3,7 @@
     class="sticker-hitbox"
     ng-mouseenter="sticker.hovered = true"
     ng-mouseleave="sticker.hovered = false"
-    ui-sref="copy({url: sticker.imageUrl})"
+    ui-sref="copy({stickerId: sticker.id, packageId: sticker.packageId, fallbackUrl: sticker.imageUrl})"
     ng-click="sticker.hovered = false; stickerClicked(sticker)"></div>
   <img
     class="sticker"

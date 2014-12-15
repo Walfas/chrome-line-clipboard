@@ -77,10 +77,18 @@ app.controller('stickersCtrl', [
 ]);
 
 app.controller('copyCtrl', [
-  '$scope', '$stateParams', 'clipboardService',
-  function($scope, $stateParams, clipboardService) {
-    $scope.url = $stateParams['url'];
-    clipboardService.copy($scope.url, '#clipboard');
+  '$scope', '$stateParams', 'clipboardService', 'stickersService',
+  function($scope, $stateParams, clipboardService, stickersService) {
+    $scope.twitterUrl = null;
+    $scope.error = null;
+    $scope.url = $stateParams['fallbackUrl'];
+
+    stickersService
+      .getTwitterUrl($stateParams['packageId'], $stateParams['stickerId'])
+      .then(function(url) {
+        $scope.twitterUrl = url;
+        clipboardService.copy(url, '#clipboard');
+      })
   }
 ]);
 
